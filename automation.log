@@ -1,1 +1,12 @@
-2025-11-16 19:20:11,810 INFO Ingesting data for AAPL (daily) from 2000-01-01 to None
+2025-11-16 21:50:12,022 INFO Starting task: ingest_data
+2025-11-16 21:50:12,022 INFO Ingesting data for AAPL (daily) from 2022-01-01 to None
+2025-11-16 21:50:12,464 INFO Starting task: generate_features
+2025-11-16 21:50:12,464 INFO Generating daily features for AAPL
+2025-11-16 21:50:13,036 INFO Starting task: train_regression_models
+2025-11-16 21:50:13,036 INFO Training daily regression models for AAPL
+2025-11-16 21:50:15,598 INFO Starting task: train_classification_model
+2025-11-16 21:50:15,598 INFO Training classifier for AAPL (daily)
+2025-11-16 21:50:15,980 INFO Starting task: run_backtest
+2025-11-16 21:50:15,980 INFO Running backtest for AAPL (daily)
+2025-11-16 21:50:16,116 INFO Starting task: run_diagnostics
+2025-11-16 21:50:16,117 INFO Running diagnostics for AAPL (daily)

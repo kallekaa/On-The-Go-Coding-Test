@@ -213,7 +213,7 @@ class UpdateResult:
 
 def update_data(
     symbol: str,
-    start_date: str = "2000-01-01",
+    start_date: str = "2022-01-01",
     end_date: str | None = None,
     *,
     db_path: Path | str = DEFAULT_DB_PATH,

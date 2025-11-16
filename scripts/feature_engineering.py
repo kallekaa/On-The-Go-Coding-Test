@@ -278,12 +278,21 @@ def generate_features(
     *,
     db_path: Path | str = DEFAULT_DB_PATH,
     poly_degree: int = 2,
+    start_date: str | None = "2022-01-01",
 ) -> pd.DataFrame:
     """Full feature engineering workflow for a symbol/frequency."""
     frequency = frequency.lower()
     conn = get_connection(db_path)
     try:
         price_df = load_price_data(symbol, frequency, conn)
+        if price_df.empty:
+            return price_df
+
+        if start_date:
+            cutoff = pd.to_datetime(start_date)
+            price_df["date"] = pd.to_datetime(price_df["date"])
+            price_df = price_df.loc[price_df["date"] >= cutoff].copy()
+            price_df["date"] = price_df["date"].dt.strftime("%Y-%m-%d")
         if price_df.empty:
             return price_df
 

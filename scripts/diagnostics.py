@@ -40,6 +40,7 @@ from scripts.regression_training import (
 )
 from scripts.classification_pipeline import (
     DEFAULT_TECH_FEATURES,
+    align_features_for_estimator,
     build_classification_identifier,
     build_classification_features,
     compute_regression_predictions,
@@ -548,7 +549,8 @@ def run_diagnostics(
         feature_matrix, feature_cols = build_classification_features(
             dataset.data, regression_output_map, selected_features=DEFAULT_TECH_FEATURES
         )
-        numeric_df = feature_matrix[feature_cols]
+        numeric_df = feature_matrix[feature_cols].copy()
+        numeric_df = align_features_for_estimator(numeric_df, scaler, label="Diagnostics scaler")
         probs = classifier.predict_proba(scaler.transform(numeric_df))[:, 1]
         prob_series = pd.Series(probs, index=dataset.data.index)
         labels_series = (

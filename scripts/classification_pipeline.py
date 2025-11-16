@@ -64,6 +64,23 @@ DEFAULT_TECH_FEATURES = [
 ]
 
 
+def align_features_for_estimator(
+    df: pd.DataFrame,
+    estimator,
+    *,
+    label: str = "estimator",
+) -> pd.DataFrame:
+    """Ensure feature frame matches estimator's expected columns."""
+    if hasattr(estimator, "feature_names_in_"):
+        expected = list(estimator.feature_names_in_)
+        missing = [col for col in expected if col not in df.columns]
+        if missing:
+            preview = ", ".join(missing[:5])
+            logger.warning("%s missing columns (%s ...); filling zeros.", label, preview)
+        df = df.reindex(columns=expected, fill_value=0.0)
+    return df
+
+
 @dataclass
 class ClassificationDataset:
     """Encapsulates loaded feature data and column partitions."""
@@ -203,7 +220,8 @@ def compute_regression_predictions(
         if not model_path.exists():
             continue
         model = load(model_path)
-        preds = model.predict(prepared)
+        aligned = align_features_for_estimator(prepared.copy(), model, label=f"Regression model ({horizon})")
+        preds = model.predict(aligned)
         predictions[horizon] = pd.Series(preds, index=df.index, name=f"pred_{horizon}")
     return predictions
 
@@ -731,7 +749,9 @@ def run_classification_inference(
         frame = split.select(frame, "test").reset_index(drop=True)
     else:
         frame = frame.tail(recent_points).reset_index(drop=True)
-    scaled = scaler.transform(frame[feature_cols])
+    feature_frame = frame[feature_cols].copy()
+    feature_frame = align_features_for_estimator(feature_frame, scaler, label="Classifier scaler")
+    scaled = scaler.transform(feature_frame)
     probs = model.predict_proba(scaled)[:, 1]
     frame["prob_buy"] = probs
     frame["decision"] = (frame["prob_buy"] >= prob_threshold).astype(int)

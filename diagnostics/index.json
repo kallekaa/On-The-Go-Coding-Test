@@ -1,0 +1,117 @@
+{
+  "generated_at": "2025-11-16T19:50:59.071210+00:00",
+  "entries": [
+    {
+      "id": "backtest::AAPL_daily_thr200_w1-5",
+      "stage": "backtest",
+      "symbol": "AAPL",
+      "frequency": "daily",
+      "identifier": "AAPL_daily_thr200_w1-5",
+      "path": "diagnostics\\backtesting\\AAPL_daily_thr200_w1-5.json",
+      "updated_at": "2025-11-16T19:50:59.056710+00:00",
+      "metadata": {
+        "metrics": {
+          "final_portfolio": 1.0119537096860913,
+          "total_return": 0.01195370968609133,
+          "annualized_return": 0.020579458924719907,
+          "volatility": 0.06462144516124621,
+          "sharpe": 0.34697134689973425,
+          "max_drawdown": -0.02573493908117527,
+          "win_rate": 0.16666666666666666,
+          "avg_gain": 0.024331633507028716,
+          "avg_loss": -0.008778102425639145,
+          "buy_signals": 7,
+          "trades": 6,
+          "avg_holding_period": 24.5
+        }
+      }
+    },
+    {
+      "id": "classification::AAPL_daily_thr200_w1-5",
+      "stage": "classification",
+      "symbol": "AAPL",
+      "frequency": "daily",
+      "identifier": "AAPL_daily_thr200_w1-5",
+      "path": "diagnostics\\classification\\AAPL_daily_thr200_w1-5.json",
+      "updated_at": "2025-11-16T19:50:15.971714+00:00",
+      "metadata": {
+        "threshold": 0.33999999999999997,
+        "metrics": {
+          "accuracy": 0.589041095890411,
+          "precision": 0.42857142857142855,
+          "recall": 0.05084745762711865,
+          "f1": 0.09090909090909091,
+          "roc_auc": 0.4529514903565166,
+          "expected_pnl": 0.025978491321522475,
+          "trades": 7.0,
+          "avg_trade_return": 0.025978491321522475
+        }
+      }
+    },
+    {
+      "id": "regression::AAPL_daily_ridge_target_1d",
+      "stage": "regression",
+      "symbol": "AAPL",
+      "frequency": "daily",
+      "horizon": "target_1d",
+      "path": "diagnostics\\regression\\AAPL_daily_ridge_target_1d.json",
+      "updated_at": "2025-11-16T19:50:13.570050+00:00",
+      "metadata": {
+        "model_type": "ridge",
+        "best_alpha": 10.0
+      }
+    },
+    {
+      "id": "regression::AAPL_daily_ridge_target_2d",
+      "stage": "regression",
+      "symbol": "AAPL",
+      "frequency": "daily",
+      "horizon": "target_2d",
+      "path": "diagnostics\\regression\\AAPL_daily_ridge_target_2d.json",
+      "updated_at": "2025-11-16T19:50:14.101744+00:00",
+      "metadata": {
+        "model_type": "ridge",
+        "best_alpha": 1.0
+      }
+    },
+    {
+      "id": "regression::AAPL_daily_ridge_target_3d",
+      "stage": "regression",
+      "symbol": "AAPL",
+      "frequency": "daily",
+      "horizon": "target_3d",
+      "path": "diagnostics\\regression\\AAPL_daily_ridge_target_3d.json",
+      "updated_at": "2025-11-16T19:50:14.604307+00:00",
+      "metadata": {
+        "model_type": "ridge",
+        "best_alpha": 1.0
+      }
+    },
+    {
+      "id": "regression::AAPL_daily_ridge_target_5d",
+      "stage": "regression",
+      "symbol": "AAPL",
+      "frequency": "daily",
+      "horizon": "target_5d",
+      "path": "diagnostics\\regression\\AAPL_daily_ridge_target_5d.json",
+      "updated_at": "2025-11-16T19:50:15.094326+00:00",
+      "metadata": {
+        "model_type": "ridge",
+        "best_alpha": 0.1
+      }
+    },
+    {
+      "id": "regression::AAPL_daily_ridge_target_1w",
+      "stage": "regression",
+      "symbol": "AAPL",
+      "frequency": "daily",
+      "horizon": "target_1w",
+      "path": "diagnostics\\regression\\AAPL_daily_ridge_target_1w.json",
+      "updated_at": "2025-11-16T19:50:15.587394+00:00",
+      "metadata": {
+        "model_type": "ridge",
+        "best_alpha": 0.1
+      }
+    }
+  ]
+}

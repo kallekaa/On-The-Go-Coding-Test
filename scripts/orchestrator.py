@@ -62,7 +62,7 @@ class TaskContext:
 
 def run_ingest_data(context: TaskContext) -> None:
     params = context.config.get("ingestion", {})
-    start_date = params.get("start_date", "2000-01-01")
+    start_date = params.get("start_date", "2022-01-01")
     end_date = params.get("end_date")
     LOGGER.info("Ingesting data for %s (%s) from %s to %s", context.symbol, context.frequency, start_date, end_date)
     update_data(context.symbol, start_date=start_date, end_date=end_date)
@@ -75,8 +75,8 @@ def run_feature_generation(context: TaskContext) -> None:
     generate_features(
         context.symbol,
         frequency=context.frequency,
-        start_date=params.get("start_date", "2000-01-01"),
-        end_date=params.get("end_date"),
+        start_date=params.get("start_date", "2022-01-01"),
+        train_end_date=params.get("end_date"),
         poly_degree=poly_degree,
     )
 

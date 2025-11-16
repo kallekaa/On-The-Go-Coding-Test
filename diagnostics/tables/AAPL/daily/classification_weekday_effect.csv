@@ -1,6 +1,6 @@
 weekday,prediction,actual
-Friday,1.0,0.0
-Monday,0.9944444444444445,0.0
-Thursday,1.0,0.0
-Tuesday,1.0,0.0
-Wednesday,0.995,0.0
+Friday,0.0,0.0
+Monday,0.03571428571428571,0.0
+Thursday,0.06666666666666667,0.0
+Tuesday,0.06666666666666667,0.0
+Wednesday,0.06666666666666667,0.0

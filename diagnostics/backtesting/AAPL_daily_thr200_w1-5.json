@@ -1,0 +1,1084 @@
+{
+  "id": "backtest::AAPL_daily_thr200_w1-5",
+  "stage": "backtest",
+  "symbol": "AAPL",
+  "frequency": "daily",
+  "identifier": "AAPL_daily_thr200_w1-5",
+  "metrics": {
+    "final_portfolio": 1.0119537096860913,
+    "total_return": 0.01195370968609133,
+    "annualized_return": 0.020579458924719907,
+    "volatility": 0.06462144516124621,
+    "sharpe": 0.34697134689973425,
+    "max_drawdown": -0.02573493908117527,
+    "win_rate": 0.16666666666666666,
+    "avg_gain": 0.024331633507028716,
+    "avg_loss": -0.008778102425639145,
+    "buy_signals": 7,
+    "trades": 6,
+    "avg_holding_period": 24.5
+  },
+  "benchmark": {
+    "benchmark_total_return": 0.38293232597539717,
+    "benchmark_annualized_return": 0.7433035720709888,
+    "benchmark_volatility": 0.24514647973923376,
+    "benchmark_max_drawdown": -0.08461467481727636
+  },
+  "equity_curve": [
+    {
+      "date": "2025-04-17T00:00:00",
+      "strategy_equity": 1.0,
+      "benchmark_equity": 1.0,
+      "position": 1.0,
+      "price": 196.97999572753906
+    },
+    {
+      "date": "2025-04-21T00:00:00",
+      "strategy_equity": 0.9806072081009004,
+      "benchmark_equity": 0.9806072081009004,
+      "position": 1.0,
+      "price": 193.16000366210938
+    },
+    {
+      "date": "2025-04-22T00:00:00",
+      "strategy_equity": 1.0140116246598088,
+      "benchmark_equity": 1.0140116246598088,
+      "position": 1.0,
+      "price": 199.74000549316406
+    },
+    {
+      "date": "2025-04-23T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.038684183882898,
+      "position": 0.0,
+      "price": 204.60000610351562
+    },
+    {
+      "date": "2025-04-24T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0578231274073282,
+      "position": 0.0,
+      "price": 208.3699951171875
+    },
+    {
+      "date": "2025-04-25T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.062442904449907,
+      "position": 0.0,
+      "price": 209.27999877929688
+    },
+    {
+      "date": "2025-04-28T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0668088331178165,
+      "position": 0.0,
+      "price": 210.13999938964844
+    },
+    {
+      "date": "2025-04-29T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0722408939738781,
+      "position": 0.0,
+      "price": 211.2100067138672
+    },
+    {
+      "date": "2025-04-30T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0787897482439184,
+      "position": 0.0,
+      "price": 212.5
+    },
+    {
+      "date": "2025-05-01T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0829526446902813,
+      "position": 0.0,
+      "price": 213.32000732421875
+    },
+    {
+      "date": "2025-05-02T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.042491677111994,
+      "position": 0.0,
+      "price": 205.35000610351562
+    },
+    {
+      "date": "2025-05-05T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0096964346813737,
+      "position": 0.0,
+      "price": 198.88999938964844
+    },
+    {
+      "date": "2025-05-06T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0077672799902644,
+      "position": 0.0,
+      "price": 198.50999450683594
+    },
+    {
+      "date": "2025-05-07T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 0.9962940616135012,
+      "position": 0.0,
+      "price": 196.25
+    },
+    {
+      "date": "2025-05-08T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0025891449725202,
+      "position": 0.0,
+      "price": 197.49000549316406
+    },
+    {
+      "date": "2025-05-09T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0078688348328617,
+      "position": 0.0,
+      "price": 198.52999877929688
+    },
+    {
+      "date": "2025-05-12T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0701086295975741,
+      "position": 0.0,
+      "price": 210.7899932861328
+    },
+    {
+      "date": "2025-05-13T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0809726738460492,
+      "position": 0.0,
+      "price": 212.92999267578125
+    },
+    {
+      "date": "2025-05-14T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.077926725740961,
+      "position": 0.0,
+      "price": 212.3300018310547
+    },
+    {
+      "date": "2025-05-15T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0734592422304543,
+      "position": 0.0,
+      "price": 211.4499969482422
+    },
+    {
+      "date": "2025-05-16T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0724946648848994,
+      "position": 0.0,
+      "price": 211.25999450683594
+    },
+    {
+      "date": "2025-05-19T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0599045756305097,
+      "position": 0.0,
+      "price": 208.77999877929688
+    },
+    {
+      "date": "2025-05-20T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0501574022596611,
+      "position": 0.0,
+      "price": 206.86000061035156
+    },
+    {
+      "date": "2025-05-21T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.025941723632788,
+      "position": 0.0,
+      "price": 202.08999633789062
+    },
+    {
+      "date": "2025-05-22T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.022235785246289,
+      "position": 0.0,
+      "price": 201.36000061035156
+    },
+    {
+      "date": "2025-05-23T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 0.9913189588173036,
+      "position": 0.0,
+      "price": 195.27000427246094
+    },
+    {
+      "date": "2025-05-27T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0163976599471343,
+      "position": 0.0,
+      "price": 200.2100067138672
+    },
+    {
+      "date": "2025-05-28T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.017463714671638,
+      "position": 0.0,
+      "price": 200.4199981689453
+    },
+    {
+      "date": "2025-05-29T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0150776793843128,
+      "position": 0.0,
+      "price": 199.9499969482422
+    },
+    {
+      "date": "2025-05-30T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0196467177374169,
+      "position": 0.0,
+      "price": 200.85000610351562
+    },
+    {
+      "date": "2025-06-02T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0239618302522038,
+      "position": 0.0,
+      "price": 201.6999969482422
+    },
+    {
+      "date": "2025-06-03T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0319322199276628,
+      "position": 0.0,
+      "price": 203.27000427246094
+    },
+    {
+      "date": "2025-06-04T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0296477394829349,
+      "position": 0.0,
+      "price": 202.82000732421875
+    },
+    {
+      "date": "2025-06-05T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0185298468597903,
+      "position": 0.0,
+      "price": 200.6300048828125
+    },
+    {
+      "date": "2025-06-06T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0352320164074205,
+      "position": 0.0,
+      "price": 203.9199981689453
+    },
+    {
+      "date": "2025-06-09T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.022692665842505,
+      "position": 0.0,
+      "price": 201.4499969482422
+    },
+    {
+      "date": "2025-06-10T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0288861943589267,
+      "position": 0.0,
+      "price": 202.6699981689453
+    },
+    {
+      "date": "2025-06-11T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0091379992425604,
+      "position": 0.0,
+      "price": 198.77999877929688
+    },
+    {
+      "date": "2025-06-12T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0112701861552165,
+      "position": 0.0,
+      "price": 199.1999969482422
+    },
+    {
+      "date": "2025-06-13T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 0.9973093776485306,
+      "position": 0.0,
+      "price": 196.4499969482422
+    },
+    {
+      "date": "2025-06-16T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0073103993940484,
+      "position": 0.0,
+      "price": 198.4199981689453
+    },
+    {
+      "date": "2025-06-17T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 0.9931972973552904,
+      "position": 0.0,
+      "price": 195.63999938964844
+    },
+    {
+      "date": "2025-06-18T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 0.9979693679299413,
+      "position": 0.0,
+      "price": 196.5800018310547
+    },
+    {
+      "date": "2025-06-20T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.020408185397777,
+      "position": 0.0,
+      "price": 201.0
+    },
+    {
+      "date": "2025-06-23T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0229465142171745,
+      "position": 0.0,
+      "price": 201.5
+    },
+    {
+      "date": "2025-06-24T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0168545405433502,
+      "position": 0.0,
+      "price": 200.3000030517578
+    },
+    {
+      "date": "2025-06-25T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0232511012813184,
+      "position": 0.0,
+      "price": 201.55999755859375
+    },
+    {
+      "date": "2025-06-26T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.020408185397777,
+      "position": 0.0,
+      "price": 201.0
+    },
+    {
+      "date": "2025-06-27T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0208143273045183,
+      "position": 0.0,
+      "price": 201.0800018310547
+    },
+    {
+      "date": "2025-06-30T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.041577838455914,
+      "position": 0.0,
+      "price": 205.1699981689453
+    },
+    {
+      "date": "2025-07-01T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0550310276769093,
+      "position": 0.0,
+      "price": 207.82000732421875
+    },
+    {
+      "date": "2025-07-02T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0784851611797746,
+      "position": 0.0,
+      "price": 212.44000244140625
+    },
+    {
+      "date": "2025-07-03T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0841202542573827,
+      "position": 0.0,
+      "price": 213.5500030517578
+    },
+    {
+      "date": "2025-07-07T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0658442557722618,
+      "position": 0.0,
+      "price": 209.9499969482422
+    },
+    {
+      "date": "2025-07-08T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0661488428364059,
+      "position": 0.0,
+      "price": 210.00999450683594
+    },
+    {
+      "date": "2025-07-09T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0718854907566115,
+      "position": 0.0,
+      "price": 211.13999938964844
+    },
+    {
+      "date": "2025-07-10T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0783328676477024,
+      "position": 0.0,
+      "price": 212.41000366210938
+    },
+    {
+      "date": "2025-07-11T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0719870455992089,
+      "position": 0.0,
+      "price": 211.16000366210938
+    },
+    {
+      "date": "2025-07-14T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.059092291817027,
+      "position": 0.0,
+      "price": 208.6199951171875
+    },
+    {
+      "date": "2025-07-15T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0615798819469497,
+      "position": 0.0,
+      "price": 209.11000061035156
+    },
+    {
+      "date": "2025-07-16T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0669103879604138,
+      "position": 0.0,
+      "price": 210.16000366210938
+    },
+    {
+      "date": "2025-07-17T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0661996589895286,
+      "position": 0.0,
+      "price": 210.02000427246094
+    },
+    {
+      "date": "2025-07-18T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.072088522978158,
+      "position": 0.0,
+      "price": 211.17999267578125
+    },
+    {
+      "date": "2025-07-21T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.078688193401321,
+      "position": 0.0,
+      "price": 212.47999572753906
+    },
+    {
+      "date": "2025-07-22T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0884353667721696,
+      "position": 0.0,
+      "price": 214.39999389648438
+    },
+    {
+      "date": "2025-07-23T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0871662023624709,
+      "position": 0.0,
+      "price": 214.14999389648438
+    },
+    {
+      "date": "2025-07-24T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0851863089818867,
+      "position": 0.0,
+      "price": 213.75999450683594
+    },
+    {
+      "date": "2025-07-25T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0857955605738228,
+      "position": 0.0,
+      "price": 213.8800048828125
+    },
+    {
+      "date": "2025-07-28T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.08665858307678,
+      "position": 0.0,
+      "price": 214.0500030517578
+    },
+    {
+      "date": "2025-07-29T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0725454810380222,
+      "position": 0.0,
+      "price": 211.27000427246094
+    },
+    {
+      "date": "2025-07-30T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0612752948828057,
+      "position": 0.0,
+      "price": 209.0500030517578
+    },
+    {
+      "date": "2025-07-31T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0537618632672106,
+      "position": 0.0,
+      "price": 207.57000732421875
+    },
+    {
+      "date": "2025-08-01T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0274139977276813,
+      "position": 0.0,
+      "price": 202.3800048828125
+    },
+    {
+      "date": "2025-08-04T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0323383618344042,
+      "position": 0.0,
+      "price": 203.35000610351562
+    },
+    {
+      "date": "2025-08-05T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0301553587686254,
+      "position": 0.0,
+      "price": 202.9199981689453
+    },
+    {
+      "date": "2025-08-06T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.0825972414730147,
+      "position": 0.0,
+      "price": 213.25
+    },
+    {
+      "date": "2025-08-07T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1170169740669522,
+      "position": 0.0,
+      "price": 220.02999877929688
+    },
+    {
+      "date": "2025-08-08T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.164331460443072,
+      "position": 0.0,
+      "price": 229.35000610351562
+    },
+    {
+      "date": "2025-08-11T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1533150451988767,
+      "position": 0.0,
+      "price": 227.17999267578125
+    },
+    {
+      "date": "2025-08-12T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.165854395763792,
+      "position": 0.0,
+      "price": 229.64999389648438
+    },
+    {
+      "date": "2025-08-13T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1845365361556541,
+      "position": 0.0,
+      "price": 233.3300018310547
+    },
+    {
+      "date": "2025-08-14T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1817443589615875,
+      "position": 0.0,
+      "price": 232.77999877929688
+    },
+    {
+      "date": "2025-08-15T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1757031239772378,
+      "position": 0.0,
+      "price": 231.58999633789062
+    },
+    {
+      "date": "2025-08-18T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1721494791228109,
+      "position": 0.0,
+      "price": 230.88999938964844
+    },
+    {
+      "date": "2025-08-19T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1704741728063708,
+      "position": 0.0,
+      "price": 230.55999755859375
+    },
+    {
+      "date": "2025-08-20T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1473753650571243,
+      "position": 0.0,
+      "price": 226.00999450683594
+    },
+    {
+      "date": "2025-08-21T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1417402719795162,
+      "position": 0.0,
+      "price": 224.89999389648438
+    },
+    {
+      "date": "2025-08-22T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1562595159250155,
+      "position": 0.0,
+      "price": 227.75999450683594
+    },
+    {
+      "date": "2025-08-25T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1532135678199273,
+      "position": 0.0,
+      "price": 227.16000366210938
+    },
+    {
+      "date": "2025-08-26T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1641283507578772,
+      "position": 0.0,
+      "price": 229.30999755859375
+    },
+    {
+      "date": "2025-08-27T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1701188470527522,
+      "position": 0.0,
+      "price": 230.49000549316406
+    },
+    {
+      "date": "2025-08-28T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1806274880839607,
+      "position": 0.0,
+      "price": 232.55999755859375
+    },
+    {
+      "date": "2025-08-29T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1784953011713046,
+      "position": 0.0,
+      "price": 232.13999938964844
+    },
+    {
+      "date": "2025-09-02T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1662097989810587,
+      "position": 0.0,
+      "price": 229.72000122070312
+    },
+    {
+      "date": "2025-09-03T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.2106305533205142,
+      "position": 0.0,
+      "price": 238.47000122070312
+    },
+    {
+      "date": "2025-09-04T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.2172809624331518,
+      "position": 0.0,
+      "price": 239.77999877929688
+    },
+    {
+      "date": "2025-09-05T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.2168240818369358,
+      "position": 0.0,
+      "price": 239.69000244140625
+    },
+    {
+      "date": "2025-09-08T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.2076353439049006,
+      "position": 0.0,
+      "price": 237.8800048828125
+    },
+    {
+      "date": "2025-09-09T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1897147486370465,
+      "position": 0.0,
+      "price": 234.35000610351562
+    },
+    {
+      "date": "2025-09-10T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1513351518182926,
+      "position": 0.0,
+      "price": 226.7899932861328
+    },
+    {
+      "date": "2025-09-11T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1677835504549015,
+      "position": 0.0,
+      "price": 230.02999877929688
+    },
+    {
+      "date": "2025-09-12T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.1882932906952757,
+      "position": 0.0,
+      "price": 234.07000732421875
+    },
+    {
+      "date": "2025-09-15T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.2016448476100257,
+      "position": 0.0,
+      "price": 236.6999969482422
+    },
+    {
+      "date": "2025-09-16T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.2090059856935487,
+      "position": 0.0,
+      "price": 238.14999389648438
+    },
+    {
+      "date": "2025-09-17T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.213270436982509,
+      "position": 0.0,
+      "price": 238.99000549316406
+    },
+    {
+      "date": "2025-09-18T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.2076353439049006,
+      "position": 0.0,
+      "price": 237.8800048828125
+    },
+    {
+      "date": "2025-09-19T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.2463194503241506,
+      "position": 0.0,
+      "price": 245.5
+    },
+    {
+      "date": "2025-09-22T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.3000304199745905,
+      "position": 0.0,
+      "price": 256.0799865722656
+    },
+    {
+      "date": "2025-09-23T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.291653965856038,
+      "position": 0.0,
+      "price": 254.42999267578125
+    },
+    {
+      "date": "2025-09-24T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.2808914764501602,
+      "position": 0.0,
+      "price": 252.30999755859375
+    },
+    {
+      "date": "2025-09-25T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.3040410228888812,
+      "position": 0.0,
+      "price": 256.8699951171875
+    },
+    {
+      "date": "2025-09-26T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.2968829944905529,
+      "position": 0.0,
+      "price": 255.4600067138672
+    },
+    {
+      "date": "2025-09-29T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.291653965856038,
+      "position": 0.0,
+      "price": 254.42999267578125
+    },
+    {
+      "date": "2025-09-30T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.2926693593547154,
+      "position": 0.0,
+      "price": 254.6300048828125
+    },
+    {
+      "date": "2025-10-01T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.2968321783374304,
+      "position": 0.0,
+      "price": 255.4499969482422
+    },
+    {
+      "date": "2025-10-02T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.3053610034517027,
+      "position": 0.0,
+      "price": 257.1300048828125
+    },
+    {
+      "date": "2025-10-03T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.309879148188036,
+      "position": 0.0,
+      "price": 258.0199890136719
+    },
+    {
+      "date": "2025-10-06T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.3031272616964493,
+      "position": 0.0,
+      "price": 256.69000244140625
+    },
+    {
+      "date": "2025-10-07T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.3020612069719453,
+      "position": 0.0,
+      "price": 256.4800109863281
+    },
+    {
+      "date": "2025-10-08T00:00:00",
+      "strategy_equity": 1.038684183882898,
+      "benchmark_equity": 1.310082257873231,
+      "position": 1.0,
+      "price": 258.05999755859375
+    },
+    {
+      "date": "2025-10-09T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.2896740724754538,
+      "position": 0.0,
+      "price": 254.0399932861328
+    },
+    {
+      "date": "2025-10-10T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.2451518407570492,
+      "position": 0.0,
+      "price": 245.27000427246094
+    },
+    {
+      "date": "2025-10-13T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.257285049415223,
+      "position": 0.0,
+      "price": 247.66000366210938
+    },
+    {
+      "date": "2025-10-14T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.2578434848540365,
+      "position": 0.0,
+      "price": 247.77000427246094
+    },
+    {
+      "date": "2025-10-15T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.2658137970658474,
+      "position": 0.0,
+      "price": 249.33999633789062
+    },
+    {
+      "date": "2025-10-16T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.256218917227071,
+      "position": 0.0,
+      "price": 247.4499969482422
+    },
+    {
+      "date": "2025-10-17T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.2807899216075629,
+      "position": 0.0,
+      "price": 252.2899932861328
+    },
+    {
+      "date": "2025-10-20T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3313026496208427,
+      "position": 0.0,
+      "price": 262.239990234375
+    },
+    {
+      "date": "2025-10-21T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.333993271972312,
+      "position": 0.0,
+      "price": 262.7699890136719
+    },
+    {
+      "date": "2025-10-22T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.312062228717463,
+      "position": 0.0,
+      "price": 258.45001220703125
+    },
+    {
+      "date": "2025-10-23T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3177987217103726,
+      "position": 0.0,
+      "price": 259.5799865722656
+    },
+    {
+      "date": "2025-10-24T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3342471978106294,
+      "position": 0.0,
+      "price": 262.82000732421875
+    },
+    {
+      "date": "2025-10-27T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.364656327490276,
+      "position": 0.0,
+      "price": 268.80999755859375
+    },
+    {
+      "date": "2025-10-28T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.365620904835831,
+      "position": 0.0,
+      "price": 269.0
+    },
+    {
+      "date": "2025-10-29T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3691746271539058,
+      "position": 0.0,
+      "price": 269.70001220703125
+    },
+    {
+      "date": "2025-10-30T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3778048521834794,
+      "position": 0.0,
+      "price": 271.3999938964844
+    },
+    {
+      "date": "2025-10-31T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3725759010126126,
+      "position": 0.0,
+      "price": 270.3699951171875
+    },
+    {
+      "date": "2025-11-03T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3658746757468523,
+      "position": 0.0,
+      "price": 269.04998779296875
+    },
+    {
+      "date": "2025-11-04T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3709006721598205,
+      "position": 0.0,
+      "price": 270.0400085449219
+    },
+    {
+      "date": "2025-11-05T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3714083689091592,
+      "position": 0.0,
+      "price": 270.1400146484375
+    },
+    {
+      "date": "2025-11-06T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3695298754438763,
+      "position": 0.0,
+      "price": 269.7699890136719
+    },
+    {
+      "date": "2025-11-07T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3629302824843614,
+      "position": 0.0,
+      "price": 268.4700012207031
+    },
+    {
+      "date": "2025-11-10T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3678038304379616,
+      "position": 0.0,
+      "price": 269.42999267578125
+    },
+    {
+      "date": "2025-11-11T00:00:00",
+      "strategy_equity": 1.0225037805020958,
+      "benchmark_equity": 1.3973500150782991,
+      "position": 1.0,
+      "price": 275.25
+    },
+    {
+      "date": "2025-11-12T00:00:00",
+      "strategy_equity": 1.01589140818195,
+      "benchmark_equity": 1.388313570678336,
+      "position": 1.0,
+      "price": 273.4700012207031
+    },
+    {
+      "date": "2025-11-13T00:00:00",
+      "strategy_equity": 1.0139597433961223,
+      "benchmark_equity": 1.3856737644799892,
+      "position": 1.0,
+      "price": 272.95001220703125
+    },
+    {
+      "date": "2025-11-14T00:00:00",
+      "strategy_equity": 1.0119537096860913,
+      "benchmark_equity": 1.3829323259753972,
+      "position": 0.0,
+      "price": 272.4100036621094
+    }
+  ],
+  "insight_flags": [
+    "low_sharpe_ratio"
+  ],
+  "artifacts": [
+    {
+      "type": "model",
+      "description": "classifier_model",
+      "path": "models\\classification\\models\\AAPL_daily_thr200_w1-5.joblib"
+    },
+    {
+      "type": "scaler",
+      "description": "classifier_scaler",
+      "path": "models\\classification\\scalers\\AAPL_daily_thr200_w1-5.joblib"
+    },
+    {
+      "type": "table",
+      "description": "classifier_threshold",
+      "path": "models\\classification\\thresholds\\AAPL_daily_thr200_w1-5.json"
+    },
+    {
+      "type": "table",
+      "description": "classifier_metrics",
+      "path": "models\\metrics\\classification\\AAPL_daily_thr200_w1-5.json"
+    }
+  ],
+  "generated_at": "2025-11-16T19:50:59.056710+00:00"
+}
