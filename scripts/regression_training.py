@@ -1,6 +1,7 @@
 """Regression training pipeline with time-series aware CV."""
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from pathlib import Path
 import json
@@ -17,12 +18,15 @@ from joblib import dump, load
 from sklearn.linear_model import Lasso, Ridge
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
+from scripts.diagnostic_outputs import save_regression_summary
 from scripts.targets import ordered_target_names
 from scripts.time_splits import (
     TimeSplit,
     generate_walk_forward_splits,
     get_or_create_time_split,
 )
+
+logger = logging.getLogger(__name__)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -130,7 +134,9 @@ def run_walk_forward_analysis(
         max_splits=wf_cfg.get("max_splits"),
     )
     if not splits:
-        print("Walk-forward configuration produced no valid splits.")
+        message = "Walk-forward configuration produced no valid splits."
+        logger.warning(message)
+        print(message)
         return
     for horizon in TARGET_HORIZONS:
         if horizon not in dataset.columns:
@@ -279,7 +285,7 @@ def train_single_horizon(
     alpha_grid: Sequence[float],
     *,
     persist: bool = True,
-    random_seed: int = 42,
+    random_seed: int = 667,
 ) -> ModelTrainingResult | None:
     """Train, tune, and evaluate a regression model for a single horizon."""
     train_X, train_y = _prepare_matrix(split_data.train, feature_cols, target_col)
@@ -315,12 +321,31 @@ def train_single_horizon(
         model = model_cls(alpha=best_alpha, max_iter=10000)
     model.fit(final_X, final_y)
 
+    trained_feature_cols = list(final_X.columns)
+
     test_X, test_y = _prepare_matrix(split_data.test, feature_cols, target_col)
+    error_series: List[Dict[str, float | str | None]] = []
     if test_y.empty:
         metrics = {"rmse": None, "mae": None, "r2": None}
+        predictions = np.array([])
     else:
         predictions = model.predict(test_X)
         metrics = evaluate_predictions(test_y.values, predictions)
+        test_dates = split_data.test["date"].reset_index(drop=True)
+        for idx, (actual, pred) in enumerate(zip(test_y.values, predictions)):
+            date_value = test_dates.iloc[idx] if idx < len(test_dates) else None
+            if hasattr(date_value, "isoformat"):
+                date_str = date_value.isoformat()
+            else:
+                date_str = str(date_value)
+            error_series.append(
+                {
+                    "date": date_str,
+                    "actual": float(actual),
+                    "predicted": float(pred),
+                    "error": float(pred - actual),
+                }
+            )
 
     model_path = None
     metrics_path = None
@@ -329,6 +354,49 @@ def train_single_horizon(
         metrics_path = build_metrics_path(symbol, frequency, model_type, target_col)
         save_model(model, model_path)
         store_metrics(metrics, metrics_path)
+
+    feature_importance: List[Dict[str, float | str]] = []
+    if hasattr(model, "coef_"):
+        coefs = getattr(model, "coef_")
+        if isinstance(coefs, np.ndarray) and coefs.ndim > 1:
+            coefs = coefs.ravel()
+        for feature, weight in zip(trained_feature_cols, coefs):
+            weight_float = float(weight)
+            feature_importance.append(
+                {
+                    "feature": feature,
+                    "weight": weight_float,
+                    "abs_weight": abs(weight_float),
+                }
+            )
+        feature_importance.sort(key=lambda item: item["abs_weight"], reverse=True)
+
+    insight_flags: List[str] = []
+    if not error_series:
+        insight_flags.append("no_test_data")
+    if metrics.get("r2") is not None and metrics["r2"] is not None and metrics["r2"] < 0:
+        insight_flags.append("negative_r2")
+    if metrics.get("rmse") is None:
+        insight_flags.append("missing_rmse")
+
+    if persist:
+        artifacts: List[Dict[str, str]] = []
+        if model_path:
+            artifacts.append({"type": "model", "path": str(model_path)})
+        if metrics_path:
+            artifacts.append({"type": "table", "description": "regression_metrics", "path": str(metrics_path)})
+        save_regression_summary(
+            symbol=symbol,
+            frequency=frequency,
+            model_type=model_type,
+            horizon=target_col,
+            metrics=metrics,
+            best_alpha=float(best_alpha),
+            feature_importance=feature_importance,
+            error_series=error_series,
+            artifacts=artifacts,
+            insight_flags=insight_flags,
+        )
 
     return ModelTrainingResult(
         horizon=target_col,
@@ -349,7 +417,7 @@ def train_regression_models(
     test_ratio: float = 0.15,
     *,
     walk_forward: Dict[str, Any] | None = None,
-    random_seed: int = 42,
+    random_seed: int = 667,
     db_path: Path | str = DEFAULT_DB_PATH,
 ) -> Dict[str, ModelTrainingResult]:
     """Canonical entry point for training regression models across horizons."""
@@ -365,7 +433,9 @@ def train_regression_models(
         conn.close()
 
     if dataset.data.empty:
-        print(f"No feature data for {symbol.upper()} ({frequency}).")
+        message = f"No feature data for {symbol.upper()} ({frequency})."
+        logger.warning(message)
+        print(message)
         return {}
     split_definition = get_or_create_time_split(
         symbol,
@@ -392,12 +462,16 @@ def train_regression_models(
         )
         if result:
             results[horizon] = result
-            print(
+            message = (
                 f"{symbol.upper()} {frequency} {horizon}: alpha={result.best_alpha}, "
                 f"metrics={result.metrics}"
             )
+            logger.info(message)
+            print(message)
         else:
-            print(f"Skipping horizon {horizon} for {symbol.upper()} ({frequency}) due to insufficient data.")
+            message = f"Skipping horizon {horizon} for {symbol.upper()} ({frequency}) due to insufficient data."
+            logger.warning(message)
+            print(message)
     if walk_forward:
         run_walk_forward_analysis(
             symbol,
@@ -413,7 +487,12 @@ def train_regression_models(
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     summary_daily = train_regression_models("AAPL", "daily")
     summary_weekly = train_regression_models("AAPL", "weekly")
-    print("Daily horizons trained:", list(summary_daily))
-    print("Weekly horizons trained:", list(summary_weekly))
+    daily_message = f"Daily horizons trained: {list(summary_daily)}"
+    weekly_message = f"Weekly horizons trained: {list(summary_weekly)}"
+    logger.info(daily_message)
+    logger.info(weekly_message)
+    print(daily_message)
+    print(weekly_message)

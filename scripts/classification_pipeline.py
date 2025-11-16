@@ -1,6 +1,7 @@
 """Classification pipeline converting regression outputs into buy/no-buy decisions."""
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from pathlib import Path
 import json
@@ -17,11 +18,13 @@ from joblib import dump, load
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     accuracy_score,
+    confusion_matrix,
     f1_score,
     precision_recall_curve,
     precision_score,
     recall_score,
     roc_auc_score,
+    roc_curve,
 )
 from sklearn.preprocessing import StandardScaler
 
@@ -31,6 +34,10 @@ from scripts.targets import (
     target_columns_for_window,
 )
 from scripts.time_splits import TimeSplit, get_or_create_time_split, load_time_split
+from scripts.diagnostic_outputs import save_classification_summary
+
+
+logger = logging.getLogger(__name__)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -263,7 +270,7 @@ def fit_logistic_model(
         C=C,
         solver=solver,
         max_iter=5000,
-        random_state=42,
+        random_state=667,
         class_weight=class_weight,
     )
     model.fit(X_train, y_train)
@@ -469,7 +476,7 @@ def train_buy_classifier(
     probability_strategy: str = "f1",
     cv_metric: str = "f1",
     class_weight: Optional[Dict[int, float] | str] = None,
-    random_seed: int = 42,
+    random_seed: int = 667,
     db_path: Path | str = DEFAULT_DB_PATH,
 ) -> ClassificationResult | None:
     """Master orchestration for training the buy/no-buy classifier."""
@@ -480,7 +487,9 @@ def train_buy_classifier(
         conn.close()
 
     if dataset.data.empty:
-        print(f"No feature data for {symbol.upper()} ({frequency}).")
+        message = f"No feature data for {symbol.upper()} ({frequency})."
+        logger.warning(message)
+        print(message)
         return None
     class_weight = parse_class_weight(class_weight)
 
@@ -493,7 +502,9 @@ def train_buy_classifier(
         model_type=regression_model_type,
     )
     if not regression_outputs:
-        print("Regression predictions missing; train regression models first.")
+        message = "Regression predictions missing; train regression models first."
+        logger.warning(message)
+        print(message)
         return None
 
     labels, future_returns = construct_buy_labels(
@@ -513,7 +524,9 @@ def train_buy_classifier(
     )
     combined = combined.dropna(subset=["label_buy"])
     if combined.empty:
-        print("Label construction removed all rows; adjust threshold/window.")
+        message = "Label construction removed all rows; adjust threshold/window."
+        logger.warning(message)
+        print(message)
         return None
 
     split_def = load_time_split(symbol, frequency)
@@ -539,7 +552,9 @@ def train_buy_classifier(
     X_test, y_test, ret_test = build_xy(split.test)
 
     if len(y_train.unique()) < 2 or len(y_val) == 0 or len(y_test) == 0:
-        print("Insufficient class diversity for training.")
+        message = "Insufficient class diversity for training."
+        logger.warning(message)
+        print(message)
         return None
 
     n_samples = len(X_train)
@@ -604,7 +619,66 @@ def train_buy_classifier(
         metrics=metrics,
     )
 
-    print(f"Classifier trained for {symbol.upper()} ({frequency}); metrics={metrics}")
+    preds = (test_probs >= best_threshold).astype(int)
+    confusion = confusion_matrix(y_test.values, preds).tolist()
+    precision_pts, recall_pts, pr_thresholds = precision_recall_curve(y_test.values, test_probs)
+    roc_data: Dict[str, List[float]]
+    if len(np.unique(y_test.values)) > 1:
+        fpr, tpr, roc_thresholds = roc_curve(y_test.values, test_probs)
+        roc_data = {
+            "fpr": [float(value) for value in fpr],
+            "tpr": [float(value) for value in tpr],
+            "thresholds": [float(value) for value in roc_thresholds],
+        }
+    else:
+        roc_data = {"fpr": [], "tpr": [], "thresholds": []}
+    curves = {
+        "precision_recall": {
+            "precision": [float(value) for value in precision_pts],
+            "recall": [float(value) for value in recall_pts],
+            "thresholds": [float(value) for value in pr_thresholds],
+        },
+        "roc": roc_data,
+    }
+    positive_rate = float(y_test.mean()) if len(y_test) else 0.0
+    insight_flags: List[str] = []
+    if positive_rate and (positive_rate < 0.1 or positive_rate > 0.9):
+        insight_flags.append("class_imbalance")
+    if metrics.get("f1", 0.0) < 0.5:
+        insight_flags.append("low_f1_score")
+    roc_auc_value = metrics.get("roc_auc")
+    roc_auc_float: Optional[float] = None
+    if roc_auc_value is not None:
+        try:
+            roc_auc_float = float(roc_auc_value)
+        except (TypeError, ValueError):
+            roc_auc_float = None
+    if roc_auc_float is not None and not np.isnan(roc_auc_float) and roc_auc_float < 0.6:
+        insight_flags.append("weak_separation")
+    expected_pnl = metrics.get("expected_pnl")
+    if expected_pnl is not None and expected_pnl < 0:
+        insight_flags.append("negative_expected_pnl")
+    artifacts = [
+        {"type": "model", "path": model_path},
+        {"type": "scaler", "path": scaler_path},
+        {"type": "table", "description": "classification_threshold", "path": threshold_path},
+        {"type": "table", "description": "classification_metrics", "path": metrics_path},
+    ]
+    save_classification_summary(
+        symbol=symbol,
+        frequency=frequency,
+        identifier=identifier,
+        metrics=metrics,
+        threshold=best_threshold,
+        confusion_matrix=confusion,
+        curves=curves,
+        artifacts=artifacts,
+        insight_flags=insight_flags,
+    )
+
+    result_message = f"Classifier trained for {symbol.upper()} ({frequency}); metrics={metrics}"
+    logger.info(result_message)
+    print(result_message)
     return ClassificationResult(
         symbol=symbol.upper(),
         frequency=frequency,
@@ -629,7 +703,7 @@ def run_classification_inference(
     recent_points: int = 30,
     db_path: Path | str = DEFAULT_DB_PATH,
     split: Optional[TimeSplit] = None,
-    random_seed: int = 42,
+    random_seed: int = 667,
 ) -> pd.DataFrame:
     """Generate probabilities and buy/no-buy decisions for recent data."""
     identifier = build_classification_identifier(symbol, frequency, threshold, window)
@@ -665,7 +739,9 @@ def run_classification_inference(
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     result = train_buy_classifier("AAPL", frequency="daily")
     if result:
         inference_df = run_classification_inference("AAPL", frequency="daily")
+        logger.info("Inference preview:\n%s", inference_df.tail())
         print(inference_df.tail())

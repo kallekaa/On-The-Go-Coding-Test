@@ -1,6 +1,7 @@
 """Feature engineering pipeline for daily and weekly stock price data."""
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 import sqlite3
 import sys
@@ -16,6 +17,8 @@ from sklearn.preprocessing import PolynomialFeatures, StandardScaler
 
 from scripts.targets import compute_forward_returns
 
+
+logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = PROJECT_ROOT / "data"
@@ -316,7 +319,9 @@ def generate_features(
             df.loc[test_mask, scaled_cols] = test_scaled
 
         stored = store_features(df, frequency, conn)
-        print(f"Stored {stored} {frequency} feature rows for {symbol.upper()}.")
+        message = f"Stored {stored} {frequency} feature rows for {symbol.upper()}."
+        logger.info(message)
+        print(message)
         return df
     finally:
         conn.close()
@@ -369,7 +374,9 @@ def select_feature_columns(df: pd.DataFrame, numeric_cols: Sequence[str]) -> Seq
                 continue
             if corr_matrix.loc[col, other] >= CORRELATION_THRESHOLD:
                 dropped.add(other)
-    print(f"Feature selection retained {len(selected)} columns (from {len(numeric_cols)}).")
+    message = f"Feature selection retained {len(selected)} columns (from {len(numeric_cols)})."
+    logger.info(message)
+    print(message)
     return selected
 
 
@@ -403,11 +410,18 @@ def audit_feature_leakage(
                     f"Feature leakage detected for column '{col}' at index {idx}: "
                     f"full={val_full}, recomputed={val_recalc}"
                 )
-    print("Feature leakage audit passed for numeric features.")
+    message = "Feature leakage audit passed for numeric features."
+    logger.info(message)
+    print(message)
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     daily_features = generate_features("AAPL", "daily")
-    print(f"Daily feature shape: {daily_features.shape}")
+    daily_message = f"Daily feature shape: {daily_features.shape}"
+    logger.info(daily_message)
+    print(daily_message)
     weekly_features = generate_features("AAPL", "weekly")
-    print(f"Weekly feature shape: {weekly_features.shape}")
+    weekly_message = f"Weekly feature shape: {weekly_features.shape}"
+    logger.info(weekly_message)
+    print(weekly_message)

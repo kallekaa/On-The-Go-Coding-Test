@@ -1,6 +1,7 @@
 """Backtesting and validation module for buy/no-buy classification strategy."""
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from pathlib import Path
 import sys
@@ -13,13 +14,20 @@ if __package__ is None or __package__ == "":
     sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from scripts.classification_pipeline import (
+    CLASSIFIER_METRICS_DIR,
+    CLASSIFIER_MODEL_DIR,
+    CLASSIFIER_SCALER_DIR,
+    CLASSIFIER_THRESHOLD_DIR,
     build_classification_identifier,
     load_classifier_artifacts,
     run_classification_inference,
     get_connection,
     load_feature_data,
 )
+from scripts.diagnostic_outputs import save_backtest_summary
 from scripts.time_splits import load_time_split, TimeSplit
+
+logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = PROJECT_ROOT / "data"
@@ -253,18 +261,24 @@ def run_backtest(
     config = config or BacktestConfig()
     prices = load_test_period_prices(symbol, frequency, db_path=db_path)
     if prices.empty:
-        print(f"No price data for {symbol.upper()} ({frequency}).")
+        message = f"No price data for {symbol.upper()} ({frequency})."
+        logger.warning(message)
+        print(message)
         return None
 
     split_def = load_time_split(symbol, frequency)
     if split_def is None:
-        print("Time split metadata missing. Run regression training first.")
+        message = "Time split metadata missing. Run regression training first."
+        logger.warning(message)
+        print(message)
         return None
     identifier = build_classification_identifier(symbol, frequency, threshold, window)
     try:
         _ = load_classifier_artifacts(identifier)
     except FileNotFoundError:
-        print("Classifier artifacts not found. Train classifier first.")
+        message = "Classifier artifacts not found. Train classifier first."
+        logger.warning(message)
+        print(message)
         return None
 
     signals = run_classification_inference(
@@ -277,22 +291,70 @@ def run_backtest(
         db_path=db_path,
     )
     if signals.empty:
-        print("No signals generated for backtest.")
+        message = "No signals generated for backtest."
+        logger.warning(message)
+        print(message)
         return None
 
     market_data = align_signals_with_prices(prices, signals)
     market_data = split_def.select(market_data, "test").reset_index(drop=True)
     if market_data.empty:
-        print("No overlapping data in test period for backtest.")
+        message = "No overlapping data in test period for backtest."
+        logger.warning(message)
+        print(message)
         return None
     backtest_df = run_strategy_simulation(market_data, config)
     metrics = compute_performance_metrics(backtest_df, config)
     benchmark = compute_benchmark_metrics(market_data["close"], config)
     equity = equity_curves_for_plotting(backtest_df, market_data["close"], config)
     summary = summarize_backtest(metrics, benchmark)
+    artifacts = [
+        {"type": "model", "description": "classifier_model", "path": CLASSIFIER_MODEL_DIR / f"{identifier}.joblib"},
+        {"type": "scaler", "description": "classifier_scaler", "path": CLASSIFIER_SCALER_DIR / f"{identifier}.joblib"},
+        {"type": "table", "description": "classifier_threshold", "path": CLASSIFIER_THRESHOLD_DIR / f"{identifier}.json"},
+        {"type": "table", "description": "classifier_metrics", "path": CLASSIFIER_METRICS_DIR / f"{identifier}.json"},
+    ]
+    equity_records: List[Dict[str, float | str]] = []
+    for _, row in equity.iterrows():
+        date_value = row["date"]
+        if hasattr(date_value, "isoformat"):
+            date_str = date_value.isoformat()
+        else:
+            date_str = str(date_value)
+        equity_records.append(
+            {
+                "date": date_str,
+                "strategy_equity": float(row["strategy_equity"]),
+                "benchmark_equity": float(row["benchmark_equity"]),
+                "position": float(row["position"]),
+                "price": float(row["price"]),
+            }
+        )
+    insight_flags: List[str] = []
+    total_return = metrics.get("total_return")
+    if total_return is not None and total_return < 0:
+        insight_flags.append("negative_total_return")
+    sharpe = metrics.get("sharpe")
+    if sharpe is not None and sharpe < 1:
+        insight_flags.append("low_sharpe_ratio")
+    max_drawdown = metrics.get("max_drawdown")
+    if max_drawdown is not None and max_drawdown < -0.3:
+        insight_flags.append("deep_drawdown")
+    save_backtest_summary(
+        symbol=symbol,
+        frequency=frequency,
+        identifier=identifier,
+        metrics=metrics,
+        benchmark=benchmark,
+        equity_curve=equity_records,
+        insight_flags=insight_flags,
+        artifacts=artifacts,
+    )
+    logger.info("Backtest summary:\n%s", summary)
     print(summary)
     return BacktestResult(metrics=metrics, benchmark=benchmark, equity_curve=equity, summary=summary)
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     run_backtest("AAPL", frequency="daily")

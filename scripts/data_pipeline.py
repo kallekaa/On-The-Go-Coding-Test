@@ -1,6 +1,7 @@
 """Stock data ingestion and storage pipeline using SQLite."""
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -10,6 +11,8 @@ import sqlite3
 import pandas as pd
 import yfinance as yf
 
+
+logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB_PATH = PROJECT_ROOT / "data" / "stocks.db"
@@ -235,8 +238,11 @@ def update_data(
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     summary = update_data("AAPL")
-    print(
+    message = (
         f"Updated {summary.symbol}: "
         f"{summary.daily_rows} daily rows, {summary.weekly_rows} weekly rows."
     )
+    logger.info(message)
+    print(message)
