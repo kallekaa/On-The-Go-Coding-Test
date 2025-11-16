@@ -1,0 +1,13 @@
+feature,coefficient,abs_coeff
+pred_target_1d,0.17138457769987084,0.17138457769987084
+volatility_std_20d,0.13829009197865322,0.13829009197865322
+volume_ma_10,0.014337878347829078,0.014337878347829078
+pred_target_2d,0.008249444320237236,0.008249444320237236
+pred_target_3d,0.0,0.0
+pred_target_1w,0.0,0.0
+pred_target_5d,0.0,0.0
+return_1d,0.0,0.0
+rsi_14,0.0,0.0
+return_5d,0.0,0.0
+macd,0.0,0.0
+price_over_ma_20,0.0,0.0
